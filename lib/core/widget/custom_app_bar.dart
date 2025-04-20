@@ -11,16 +11,25 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final String leadingIcon;
   final String actionIcon;
+
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      centerTitle: true,
       toolbarHeight: preferredSize.height,
-      leading: SvgPicture.asset(leadingIcon),
-      title: Text(title),
-      actions: [SvgPicture.asset(actionIcon)],
+      leading: SizedBox.shrink(),
+      leadingWidth: 0,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Image.asset(leadingIcon, width: 24),
+          Text(title),
+          Image.asset(actionIcon, width: 20),
+        ],
+      ),
     );
   }
 }
