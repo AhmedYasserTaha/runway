@@ -56,6 +56,7 @@ class CategoriesScreen extends StatelessWidget {
       appBar: CustomAppBar(
         title: "Men",
         leadingIcon: "assets/icons/arrow-left.png",
+        onTap: Navigator.of(context).pop,
         actionIcon: "assets/icons/pag.jpg",
       ),
       body: Column(

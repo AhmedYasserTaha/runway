@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:run_away/core/model/product_model.dart';
+import 'package:run_away/pages/details_products/details_products.dart';
 
 class GridViewItemWidget extends StatelessWidget {
   const GridViewItemWidget({super.key, required this.products});
@@ -25,6 +26,14 @@ class GridViewItemWidget extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return DetailsProducts(items: items);
+                      },
+                    ),
+                  );
                   log("dasdasd");
                 },
                 child: Container(
