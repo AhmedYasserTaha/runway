@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:run_away/core/model/categorie_model.dart';
 import 'package:run_away/core/widget/custom_app_bar.dart';
+import 'package:run_away/pages/product/categories_screen.dart';
 import 'package:video_player/video_player.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -31,11 +32,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<CategorieModel> categorieModel = [
     CategorieModel(name: "Women", image: "assets/images/image.png"),
-    CategorieModel(name: "Men", image: "asseassets/images/image (1).png"),
+    CategorieModel(name: "Men", image: "assets/images/image (1).png"),
     CategorieModel(name: "Kids", image: "assets/images/image (2).png"),
     CategorieModel(name: "Deals", image: "assets/images/image (3).png"),
     CategorieModel(name: "Home", image: "assets/images/image (4).png"),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,59 +46,95 @@ class _HomeScreenState extends State<HomeScreen> {
         leadingIcon: "assets/icons/bar-chart-2.png",
         actionIcon: "assets/icons/solar_bell-line-duotone.png",
       ),
-
-      body: Stack(
-        children: [
-          //video
+      body:
           _controller.value.isInitialized
-              ? AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: VideoPlayer(_controller),
-              )
-              : Container(),
+              ? Column(
+                children: [
+                  // الفيديو بأبعاده الطبيعية
+                  AspectRatio(
+                    aspectRatio: _controller.value.aspectRatio,
+                    child: VideoPlayer(_controller),
+                  ),
 
-          //categorys
-          Positioned(
-            bottom: 0,
-            right: 0,
-            left: 0,
-            child: Container(
-              width: double.infinity,
+                  // الكاتيجوريز
+                  Expanded(
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.9),
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Gap(20),
+                          const Text(
+                            "Categories",
+                            style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const Gap(20),
 
-              decoration: BoxDecoration(color: Colors.white),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Gap(10),
-                    const Text(
-                      "Categories",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: SingleChildScrollView(
+                              physics: BouncingScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children:
+                                    categorieModel.map((item) {
+                                      return Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder:
+                                                    (context) =>
+                                                        CategoriesScreen(),
+                                              ),
+                                            );
+                                          },
+                                          child: Column(
+                                            children: [
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                child: Image.asset(
+                                                  item.image,
+                                                  width: 80,
+                                                  height: 80,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                              const Gap(10),
+                                              Text(
+                                                item.name,
+                                                style: const TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }).toList(),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    const Gap(10),
-                    Row(
-                      children: List.generate(categorieModel.length, (index) {
-                        final item = categorieModel[index];
-                        return Column(
-                          children: [
-                            Image.asset(item.image),
-                            const Gap(10),
-                            Text(item.name),
-                          ],
-                        );
-                      }),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+                  ),
+                ],
+              )
+              : const Center(child: CircularProgressIndicator()),
     );
   }
 }
