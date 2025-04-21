@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:run_away/core/model/categorie_model.dart';
 import 'package:run_away/core/widget/custom_app_bar.dart';
+import 'package:run_away/core/widget/custom_bottom_nav_bar.dart';
 import 'package:run_away/pages/product/categories_screen.dart';
 import 'package:video_player/video_player.dart';
 
@@ -14,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late VideoPlayerController _controller;
+  int selectedIndex = 0;
 
   @override
   void initState() {
@@ -50,7 +52,6 @@ class _HomeScreenState extends State<HomeScreen> {
           _controller.value.isInitialized
               ? Column(
                 children: [
-                  // الفيديو بأبعاده الطبيعية
                   AspectRatio(
                     aspectRatio: _controller.value.aspectRatio,
                     child: VideoPlayer(_controller),
@@ -92,7 +93,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: GestureDetector(
                                           onTap: () {
-                                            Navigator.of(context).push(
+                                            Navigator.push(
+                                              context,
                                               MaterialPageRoute(
                                                 builder:
                                                     (context) =>
@@ -135,6 +137,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               )
               : const Center(child: CircularProgressIndicator()),
+
+      bottomNavigationBar: CustomBottomNavBar(
+        currentIndex: selectedIndex,
+        onTap: (index) {
+          setState(() {
+            selectedIndex = index;
+          });
+        },
+      ),
     );
   }
 }
