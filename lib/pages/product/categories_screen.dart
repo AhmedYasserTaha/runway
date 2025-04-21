@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:run_away/core/model/product_model.dart';
 import 'package:run_away/core/widget/custom_app_bar.dart';
+import 'package:run_away/pages/product/widget/grid_view.dart';
 import 'package:run_away/pages/product/widget/scetion_one_categories.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -61,58 +62,7 @@ class CategoriesScreen extends StatelessWidget {
         children: [
           SectionOneCategories(),
           const Gap(20),
-          Expanded(
-            child: GridView.builder(
-              itemCount: products.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 1 / 1.8,
-                crossAxisSpacing: 5,
-              ),
-              itemBuilder: (context, index) {
-                final items = products[index];
-                return Column(
-                  children: [
-                    Container(
-                      height: 255,
-                      width: 200,
-                      decoration: BoxDecoration(color: Color(0xffECECEC)),
-                      child: Image.asset(items.image),
-                    ),
-                    Gap(10),
-                    Text(
-                      maxLines: 1,
-                      items.name,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 5,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            items.price,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Image.asset("assets/icons/heart.png"),
-                        ],
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
+          GridViewItemWidget(products: products),
         ],
       ),
     );
