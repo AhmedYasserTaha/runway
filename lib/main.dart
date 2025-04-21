@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:run_away/pages/splash/splash.dart';
+import 'package:run_away/pages/product/categories_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(scaffoldBackgroundColor: Colors.white),
-      home: const Splash(),
+      home: const CategoriesScreen(),
     );
   }
 }
