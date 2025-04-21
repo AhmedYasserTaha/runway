@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:run_away/core/model/product_model.dart';
@@ -21,22 +23,27 @@ class GridViewItemWidget extends StatelessWidget {
           final items = products[index];
           return Column(
             children: [
-              Container(
-                height: 255,
-                width: 200,
-                decoration: BoxDecoration(color: Color(0xffECECEC)),
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Stack(
-                    children: [
-                      Center(child: Image.asset(items.image)),
-                      Positioned(
-                        bottom: -5,
-                        left: 10,
-                        right: 10,
-                        child: Image.asset("assets/icons/shdow.png"),
-                      ),
-                    ],
+              GestureDetector(
+                onTap: () {
+                  log("dasdasd");
+                },
+                child: Container(
+                  height: 255,
+                  width: 200,
+                  decoration: BoxDecoration(color: Color(0xffECECEC)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Stack(
+                      children: [
+                        Center(child: Image.asset(items.image)),
+                        Positioned(
+                          bottom: -5,
+                          left: 10,
+                          right: 10,
+                          child: Image.asset("assets/icons/shdow.png"),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
